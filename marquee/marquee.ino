@@ -27,7 +27,7 @@ SOFTWARE.
 
 #include "Settings.h"
 
-#define VERSION "1.9"
+#define VERSION "2.0"
 
 #define HOSTNAME "CLOCK-" 
 #define CONFIG "/conf.txt"
@@ -261,6 +261,9 @@ void setup() {
       else if (error == OTA_END_ERROR) Serial.println("End Failed");
     });
     ArduinoOTA.setHostname((const char *)hostname.c_str());
+    if (OTA_Password != "") {
+      ArduinoOTA.setPassword(((const char *)OTA_Password.c_str()));
+    }
     ArduinoOTA.begin();
   }
   
