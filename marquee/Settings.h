@@ -84,6 +84,8 @@ boolean ADVICE_ENABLED = false;
 // DIN -> D7 (MOSI)
 const int pinCS = D6; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://arduino.cc/en/Reference/SPI )
 int displayIntensity = 1;  //(This can be set from 1 - 15)
+#define IS_EXTENDED_LED false      // true = double long 8 x 1 LED panels chained (false = default 4-in-1)
+                                   // Extended 8 x 1 case:  https://www.thingiverse.com/thing:2951932
 
 String timeDisplayTurnsOn = "06:30";  // 24 Hour Format HH:MM -- Leave blank for always on. (ie 05:30)
 String timeDisplayTurnsOff = "23:00"; // 24 Hour Format HH:MM -- Leave blank for always on. Both must be set to work.

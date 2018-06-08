@@ -50,7 +50,11 @@ int8_t getWifiQuality();
 
 // LED Settings
 const int offset = 1;
-const int numberOfHorizontalDisplays = 4;
+#if (IS_EXTENDED_LED) 
+  const int numberOfHorizontalDisplays = 8;
+#else
+  const int numberOfHorizontalDisplays = 4;
+#endif
 const int numberOfVerticalDisplays = 1;
 int refresh = 0;
 String message = "hello";
@@ -180,19 +184,35 @@ void setup() {
 
   readCityIds();
 
+  Serial.println("Number os LED Displays: " + String(numberOfHorizontalDisplays));
   // initialize dispaly
   matrix.setIntensity(0); // Use a value between 0 and 15 for brightness
   matrix.setRotation(0,3);
   matrix.setRotation(1,3);
   matrix.setRotation(2,3);
   matrix.setRotation(3,3);
-
-
-// Adjust to your own needs
-  matrix.setPosition(0, 3, 0); // The first display is at <0, 7>
-  matrix.setPosition(1, 2, 0); // The second display is at <1, 0>
-  matrix.setPosition(2, 1, 0); // The third display is at <2, 0>
-  matrix.setPosition(3, 0, 0); // And the last display is at <3, 0>
+  if (IS_EXTENDED_LED) {
+    // 8 blocks wide and 1 high
+    matrix.setRotation(4,3);
+    matrix.setRotation(5,3);
+    matrix.setRotation(6,3);
+    matrix.setRotation(7,3);
+    matrix.setPosition(0, 7, 0); 
+    matrix.setPosition(1, 6, 0); 
+    matrix.setPosition(2, 5, 0); 
+    matrix.setPosition(3, 4, 0);
+    matrix.setPosition(4, 3, 0); 
+    matrix.setPosition(5, 2, 0); 
+    matrix.setPosition(6, 1, 0); 
+    matrix.setPosition(7, 0, 0); 
+  } else {
+    // Normal 4-in-1 display
+    matrix.setPosition(0, 3, 0); 
+    matrix.setPosition(1, 2, 0); 
+    matrix.setPosition(2, 1, 0); 
+    matrix.setPosition(3, 0, 0); 
+  }
+  
   Serial.println("matrix created");
   matrix.fillScreen(LOW); // show black
   centerPrint("hello");
